@@ -49,6 +49,12 @@ st.set_page_config(
 # Custom CSS for better styling
 st.markdown("""
 <style>
+    :root {
+        --primary-color: #2E86AB;
+        --background-color: #FFFFFF;
+        --secondary-background-color: #F0F2F6;
+        --text-color: #262730;
+    }
     .main-header {
         font-size: 3rem;
         font-weight: bold;
