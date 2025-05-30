@@ -55,7 +55,7 @@ st.markdown("""
     }
     .subtitle {
         font-size: 1.5rem;
-        color: #333333;
+        color: #e0e0e0;
         text-align: center;
         margin-bottom: 2rem;
         font-style: italic;
@@ -64,53 +64,54 @@ st.markdown("""
         padding: 1.5rem;
         border-radius: 10px;
         margin: 1rem 0;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        color: #000000;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        color: #ffffff;
         font-weight: bold;
     }
     .high-risk {
-        background-color: #ffebee;
+        background-color: #3c1617;
         border-left: 8px solid #d32f2f;
-        color: #b71c1c;
+        color: #ff6b6b;
     }
     .medium-risk {
-        background-color: #fff3e0;
+        background-color: #3d2914;
         border-left: 8px solid #f57c00;
-        color: #e65100;
+        color: #ffb74d;
     }
     .low-risk {
-        background-color: #e8f5e8;
+        background-color: #1b2f1b;
         border-left: 8px solid #388e3c;
-        color: #1b5e20;
+        color: #66bb6a;
     }
     .risk-card h3, .risk-card h2 {
         color: inherit;
         text-shadow: none;
     }
     .sidebar .stMarkdown, .sidebar .stNumberInput, .sidebar .stSelectbox {
-        color: #333333;
+        color: #e0e0e0;
     }
     .stMarkdown, .stMetric {
-        color: #333333;
+        color: #e0e0e0;
     }
     .ai-tab {
         border: 2px solid #4CAF50;
         border-radius: 15px;
         padding: 20px;
         margin: 15px 0;
-        background: linear-gradient(135deg, #f1f8e9, #e8f5e8);
-        box-shadow: 0 4px 12px rgba(76, 175, 80, 0.15);
-        color: #2e7d32;
+        background: linear-gradient(135deg, #1e3a2e, #2e4a3e);
+        box-shadow: 0 4px 12px rgba(76, 175, 80, 0.25);
+        color: #a5d6a7;
     }
     .stApp {
-        background-color: #ffffff;
+        background-color: #0e1117;
+        color: #e0e0e0;
     }
     .metric-card {
-        background-color: #f8f9fa;
-        border: 1px solid #e9ecef;
+        background-color: #262626;
+        border: 1px solid #404040;
         border-radius: 8px;
         padding: 1rem;
-        color: #212529;
+        color: #e0e0e0;
     }
 </style>
 """, unsafe_allow_html=True)
