@@ -82,7 +82,7 @@ def initialize_session_state():
 class GeminiAI:
     def __init__(self, api_key: str):
         self.api_key = api_key
-        self.base_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent"
+        self.base_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro-preview-05-06:generateContent"
     
     def generate_response(self, prompt: str) -> str:
         headers = {
