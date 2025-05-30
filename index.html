@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Management Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        .app-header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem 0;
+            text-align: center;
+            color: white;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .app-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .app-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Navigation Styles */
+        .category-nav {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem 0;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .category-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            margin: 0 0.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .category-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .category-btn.active {
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Main Content */
+        .main-content {
+            background: white;
+            min-height: calc(100vh - 200px);
+            padding: 2rem 0;
+        }
+
+        /* Apps Grid */
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            padding: 2rem 0;
+        }
+
+        @media (max-width: 1200px) {
+            .apps-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .apps-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .app-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid #e1e5e9;
+        }
+
+        .app-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .app-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .app-icon {
+            font-size: 2.5rem;
+            display: block;
+        }
+
+        .category-badge {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .app-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+
+        .app-card p {
+            color: #6c757d;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .app-features-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-tag {
+            background: #f8f9fa;
+            color: #495057;
+            padding: 0.25rem 0.5rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            border: 1px solid #e9ecef;
+        }
+
+        .app-card-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .view-details-btn {
+            flex: 1;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .view-details-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .quick-launch-btn {
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .quick-launch-btn:hover {
+            background: #218838;
+            transform: translateY(-1px);
+        }
+
+        /* App Detail View */
+        .app-detail {
+            background: white;
+            padding: 2rem 0;
+        }
+
+        .back-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #545b62;
+            transform: translateY(-1px);
+        }
+
+        .app-detail-content {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .app-detail-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .app-icon-large {
+            font-size: 4rem;
+        }
+
+        .app-detail-header h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+
+        .app-detail-header p {
+            color: #6c757d;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .category-tag {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .app-features {
+            margin-bottom: 2rem;
+        }
+
+        .app-features h3 {
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        .app-features ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.5rem;
+        }
+
+        .app-features li {
+            background: #f8f9fa;
+            padding: 0.75rem;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .app-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .launch-btn {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .launch-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(40, 167, 69, 0.3);
+        }
+
+        .app-preview {
+            width: 100%;
+            height: 600px;
+            border: 1px solid #e1e5e9;
+            border-radius: 10px;
+            background: #f8f9fa;
+        }
+
+        /* Footer */
+        .app-footer {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 2rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .app-header h1 {
+                font-size: 2rem;
+            }
+
+            .apps-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .category-btn {
+                margin: 0.25rem;
+                padding: 0.5rem 1rem;
+            }
+
+            .app-detail-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .app-features ul {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Fade in animation */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <header class="app-header">
+            <div class="container">
+                <div class="header-content">
+                    <h1>🏥 Health Management Platform</h1>
+                    <p>Comprehensive digital health solutions for modern healthcare management</p>
+                </div>
+            </div>
+        </header>
+
+        <nav class="category-nav">
+            <div class="container">
+                <div id="categoryButtons"></div>
+            </div>
+        </nav>
+
+        <div class="main-content">
+            <div class="container">
+                <div id="appContent"></div>
+            </div>
+        </div>
+
+        <footer class="app-footer">
+            <div class="container">
+                <p>© 2025 Health Management Platform - Empowering Your Health Journey</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Health Apps Data
+        const healthApps = [
+            {
+                id: 'health-predictor',
+                title: 'Health Risk Predictor',
+                description: 'Predict health risks based on symptoms and medical data using machine learning algorithms.',
+                icon: '📊',
+                url: 'http://localhost:8502',
+                features: ['Risk Assessment', 'ML Predictions', 'Health Scoring', 'Trend Analysis'],
+                category: 'Prediction'
+            },
+            {
+                id: 'report-analyzer', 
+                title: 'Medical Report Analyzer',
+                description: 'Upload and analyze medical reports, lab results, and health documents with AI.',
+                icon: '📋',
+                url: 'http://localhost:8506',
+                features: ['PDF Analysis', 'AI Insights', 'Report Summary', 'Key Findings'],
+                category: 'Analysis'
+            },
+            {
+                id: 'ai-chatbot',
+                title: 'AI Health Assistant',
+                description: 'Chat with an AI-powered health assistant for medical queries and advice.',
+                icon: '💬',
+                url: 'http://localhost:8501',
+                features: ['24/7 Support', 'Health Q&A', 'Symptom Guidance', 'Medical Info'],
+                category: 'Assistant'
+            },
+            {
+                id: 'hospital-finder',
+                title: 'Hospital & Clinic Finder',
+                description: 'Find nearby hospitals, clinics, and healthcare facilities with ratings and reviews.',
+                icon: '🏥',
+                url: 'http://localhost:8503',
+                features: ['Location Search', 'Facility Details', 'Ratings & Reviews', 'Contact Info'],
+                category: 'Directory'
+            },
+            {
+                id: 'symptom-tracker',
+                title: 'Symptom Tracker',
+                description: 'Track and monitor your daily symptoms with detailed logging and analytics.',
+                icon: '📝',
+                url: 'http://localhost:8507',
+                features: ['Daily Logging', 'Symptom Analytics', 'Progress Tracking', 'Export Data'],
+                category: 'Tracking'
+            },
+            {
+                id: 'medication-tracker',
+                title: 'Medication Manager',
+                description: 'Manage medications, set reminders, and track dosage schedules.',
+                icon: '💊',
+                url: 'http://localhost:8505',
+                features: ['Dose Reminders', 'Schedule Management', 'Side Effects Log', 'Refill Alerts'],
+                category: 'Management'
+            },
+            {
+                id: 'health-journal',
+                title: 'Personal Health Journal',
+                description: 'Keep a comprehensive digital health journal with notes and observations.',
+                icon: '📓',
+                url: 'http://localhost:8504',
+                features: ['Daily Entries', 'Health Notes', 'Mood Tracking', 'Export Journal'],
+                category: 'Documentation'
+            }
+        ];
+
+        // Application State
+        let selectedApp = null;
+        let selectedCategory = 'All';
+
+        // Get unique categories
+        const categories = ['All', ...new Set(healthApps.map(app => app.category))];
+
+        // Initialize the application
+        function init() {
+            renderCategoryButtons();
+            renderAppsGrid();
+        }
+
+        // Render category navigation buttons
+        function renderCategoryButtons() {
+            const container = document.getElementById('categoryButtons');
+            container.innerHTML = categories.map(category => `
+                <button 
+                    class="category-btn ${selectedCategory === category ? 'active' : ''}"
+                    onclick="selectCategory('${category}')"
+                >
+                    ${category}
+                </button>
+            `).join('');
+        }
+
+        // Render apps grid
+        function renderAppsGrid() {
+            const filteredApps = selectedCategory === 'All' 
+                ? healthApps 
+                : healthApps.filter(app => app.category === selectedCategory);
+
+            const container = document.getElementById('appContent');
+            container.innerHTML = `
+                <main class="apps-grid fade-in">
+                    ${filteredApps.map(app => `
+                        <div class="app-card" onclick="selectApp('${app.id}')">
+                            <div class="app-card-header">
+                                <span class="app-icon">${app.icon}</span>
+                                <span class="category-badge">${app.category}</span>
+                            </div>
+                            
+                            <h3>${app.title}</h3>
+                            <p>${app.description}</p>
+                            
+                            <div class="app-features-preview">
+                                ${app.features.map(feature => 
+                                    `<span class="feature-tag">${feature}</span>`
+                                ).join('')}
+                            </div>
+                            
+                            <div class="app-card-actions">
+                                <button class="view-details-btn">
+                                    View Details
+                                </button>
+                                <a 
+                                    href="${app.url}"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="quick-launch-btn"
+                                    onclick="event.stopPropagation()"
+                                >
+                                    Launch
+                                </a>
+                            </div>
+                        </div>
+                    `).join('')}
+                </main>
+            `;
+        }
+
+        // Render app detail view
+        function renderAppDetail(app) {
+            const container = document.getElementById('appContent');
+            container.innerHTML = `
+                <div class="app-detail fade-in">
+                    <button class="back-btn" onclick="goBack()">
+                        ← Back to Apps
+                    </button>
+                    
+                    <div class="app-detail-content">
+                        <div class="app-detail-header">
+                            <span class="app-icon-large">${app.icon}</span>
+                            <div>
+                                <h2>${app.title}</h2>
+                                <p>${app.description}</p>
+                                <span class="category-tag">${app.category}</span>
+                            </div>
+                        </div>
+
+                        <div class="app-features">
+                            <h3>Key Features:</h3>
+                            <ul>
+                                ${app.features.map(feature => `<li>${feature}</li>`).join('')}
+                            </ul>
+                        </div>
+
+                        <div class="app-actions">
+                            <a 
+                                href="${app.url}" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                class="launch-btn"
+                            >
+                                🚀 Launch Application
+                            </a>
+                            
+                            <iframe 
+                                src="${app.url}"
+                                title="${app.title}"
+                                class="app-preview"
+                                frameborder="0"
+                            ></iframe>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Event handlers
+        function selectCategory(category) {
+            selectedCategory = category;
+            selectedApp = null;
+            renderCategoryButtons();
+            renderAppsGrid();
+        }
+
+        function selectApp(appId) {
+            const app = healthApps.find(a => a.id === appId);
+            if (app) {
+                selectedApp = app;
+                renderAppDetail(app);
+            }
+        }
+
+        function goBack() {
+            selectedApp = null;
+            renderAppsGrid();
+        }
+
+        // Initialize the application when the page loads
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
