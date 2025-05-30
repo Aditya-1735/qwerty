@@ -33,7 +33,7 @@ st.set_page_config(
 # Configure Gemini API
 try:
     genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
-    model = genai.GenerativeModel('gemini-1.5-pro')
+    model = genai.GenerativeModel('gemini-2.5-pro-preview-05-06')
     ai_available = True
 except Exception as e:
     st.sidebar.warning(f"⚠️ AI features unavailable: {str(e)}")
