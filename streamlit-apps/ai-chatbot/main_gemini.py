@@ -50,44 +50,47 @@ st.set_page_config(
 st.markdown("""
 <style>
     :root {
-        --primary-color: #2E86AB;
-        --background-color: #FFFFFF;
-        --secondary-background-color: #F0F2F6;
-        --text-color: #262730;
+        --primary-color: #4A9EFF;
+        --background-color: #0E1117;
+        --secondary-background-color: #262730;
+        --text-color: #FAFAFA;
     }
     .main-header {
         font-size: 3rem;
         font-weight: bold;
         text-align: center;
-        color: #2E86AB;
+        color: #4A9EFF;
         margin-bottom: 2rem;
     }
     .chat-message {
         padding: 1rem;
         border-radius: 10px;
         margin: 1rem 0;
-        border-left: 5px solid #2E86AB;
+        border-left: 5px solid #4A9EFF;
+        color: #FAFAFA;
     }
     .user-message {
-        background-color: #E8F4FD;
-        border-left-color: #2E86AB;
+        background-color: #1E2129;
+        border-left-color: #4A9EFF;
     }
     .assistant-message {
-        background-color: #F0F8F0;
-        border-left-color: #28A745;
+        background-color: #1A1E23;
+        border-left-color: #4CAF50;
     }
     .sidebar-info {
-        background-color: #F8F9FA;
+        background-color: #262730;
         padding: 1rem;
         border-radius: 10px;
-        border: 1px solid #DEE2E6;
+        border: 1px solid #404040;
+        color: #FAFAFA;
     }
     .warning-box {
-        background-color: #FFF3CD;
-        border: 1px solid #FFEAA7;
+        background-color: #2A2319;
+        border: 1px solid #5A4A2A;
         border-radius: 5px;
         padding: 1rem;
         margin: 1rem 0;
+        color: #FFE066;
     }
 </style>
 """, unsafe_allow_html=True)
