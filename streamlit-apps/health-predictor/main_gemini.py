@@ -378,20 +378,20 @@ def generate_enhanced_pdf_report(user_data, diabetes_prob, heart_disease_prob, r
 # Sidebar for user inputs
 st.sidebar.header("📊 Enter Your Health Metrics")
 
-# Function to load real datasets
 @st.cache_data
 def load_real_datasets():
     try:
-        # Load diabetes dataset
-        diabetes_data = pd.read_csv('diabetes.csv')
-        
-        # Load heart disease dataset  
-        heart_data = pd.read_csv('heart.csv')
+        # Update paths to match your repository structure
+        diabetes_data = pd.read_csv('streamlit-apps/health-predictor/diabetes.csv')
+        heart_data = pd.read_csv('streamlit-apps/health-predictor/heart.csv')
         
         return diabetes_data, heart_data
     except FileNotFoundError as e:
         st.error(f"Dataset file not found: {e}")
-        st.error("Please make sure 'diabetes.csv' and 'heart.csv' are in the same directory as this script.")
+        st.error("Please make sure CSV files are in the correct directory.")
+        return None, None
+    except Exception as e:
+        st.error(f"Error loading datasets: {e}")
         return None, None
 
 # Load real datasets
